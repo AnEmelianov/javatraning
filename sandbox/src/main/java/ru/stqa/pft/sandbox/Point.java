@@ -13,7 +13,6 @@ public class Point {
     this.ap2 = ap2;
     this.bp1 = bp1;
     this.bp2 = bp2;
-
   }
 
   public double area() {
