@@ -45,4 +45,6 @@ private SessionHelper sessionHelper;
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
   }
+
+  public void accept() {wd.switchTo().alert().accept();}
 }
