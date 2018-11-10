@@ -4,9 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -46,12 +48,23 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
+
   public void deleteSelectedContacts() {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void initContactModification(int index) {
-    wd.findElements(By.cssSelector("img[alt='Edit']")).get(index).click();
+//  public void initContactModification(int index) {
+//    wd.findElements(By.cssSelector("img[alt='Edit']")).get(index).click();
+//  }
+
+  public void initContactModificationById(int id) {
+    WebElement element = wd.findElement(By.cssSelector("input[id='" + id + "']"));
+    WebElement parentElement = element.findElement(By.xpath("./../.."));
+    element = parentElement.findElement(By.cssSelector("td:nth-child(8) a"));
+    element.click();
   }
 
   public void submitContactModification() {
@@ -66,16 +79,17 @@ public class ContactHelper extends HelperBase {
     new NavigationHelper(wd).homePage();
   }
 
-  public void modify(int index, ContactData contact) {
-    selectContact(index);
-    initContactModification(index);
+  public void modify(ContactData contact) {
+    //selectContactById(contact.getId());
+    initContactModificationById(contact.getId());
     fillContactForm(contact, true);
     submitContactModification();
     returnToContactPage();
   }
 
-  public void delete(int index) {
-    selectContact(index);
+
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
     deleteSelectedContacts();
     accept();
     returnToContactPage();
@@ -89,8 +103,9 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement element : elements) {
       String firstname = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
@@ -103,4 +118,6 @@ public class ContactHelper extends HelperBase {
   public void accept() {
     wd.switchTo().alert().accept();
   }
+
+
 }
