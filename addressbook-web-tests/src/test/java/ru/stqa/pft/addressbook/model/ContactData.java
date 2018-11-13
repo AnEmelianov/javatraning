@@ -3,13 +3,14 @@ package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
   private int id = Integer.MAX_VALUE;
-  private  String firstname;
-  private  String lastname;
-  private  String address;
-  private  String email;
-  private  String mobile;
+  private String firstname;
+  private String lastname;
+  private String address;
+  private String email;
+  private String mobilePhone;
   private String group;
-
+  private String homePhone;
+  private String workPhone;
 
 
   public int getId() {
@@ -41,8 +42,18 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withMobile(String mobile) {
-    this.mobile = mobile;
+  public ContactData withMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public ContactData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public ContactData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
     return this;
   }
 
@@ -87,8 +98,16 @@ public class ContactData {
     return email;
   }
 
-  public String getMobile() {
-    return mobile;
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public String getHomePhone() {
+    return homePhone;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
   }
 
   @Override
@@ -99,5 +118,6 @@ public class ContactData {
             ", lastname='" + lastname + '\'' +
             '}';
   }
+
 
 }
