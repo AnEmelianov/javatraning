@@ -31,6 +31,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("address"), contactData.getAddress());
     type(By.name("email"), contactData.getEmail());
     type(By.name("mobile"), contactData.getMobilePhone());
+    type(By.name("home"), contactData.getHomePhone());
+    type(By.name("work"), contactData.getWorkPhone());
 
 
 //    if (creation) {
