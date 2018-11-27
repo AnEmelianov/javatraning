@@ -23,6 +23,34 @@ public class ContactHelper extends HelperBase {
     click(By.name("submit"));
   }
 
+  public void clickGroupList() {
+    click(By.name("to_group"));
+  }
+
+  public void clickFirstGroupList() {
+    click(By.name("group"));
+  }
+
+  public void clickFirstOption() {
+    click(By.xpath("//option[1]"));
+  }
+
+  public void clickOptionById(int id) {
+    click(By.xpath("//select[@name='to_group']/option[@value='" + id +"']"));
+  }
+
+  public void clickOptionByIdForRemove(int id) {
+    click(By.xpath("//select[@name='group']/option[@value='" + id +"']"));
+  }
+
+  public void clickAddToGroup() {
+    click(By.name("add"));
+  }
+
+  public void clickARemoveGroupButton() {
+    click(By.name("remove"));
+  }
+
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
@@ -82,6 +110,21 @@ public class ContactHelper extends HelperBase {
     submitContactCreation();
     contactCache = null;
     new NavigationHelper(wd).homePage();
+  }
+
+  public void addContactToGroup(int group) {
+    clickGroupList();
+    clickOptionById(group);
+    clickAddToGroup();
+    contactCache = null;
+  }
+
+  public void deleteContactFromGroup(int group, int contact) {
+    clickFirstGroupList();
+    clickOptionByIdForRemove(group);
+    selectContactById(contact);
+    clickARemoveGroupButton();
+    contactCache = null;
   }
 
   public void modify(ContactData contact) {
