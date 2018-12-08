@@ -31,10 +31,10 @@ public class JamesHelper {
 
   public boolean doesUserExist(String name) {
     initTelnetSession();
-    write("verify" + name);
+    write("verify " + name);
     String result = readUntil("exist");
     closeTelnetSession();
-    return result.trim().equals("Users " + name + " exist");
+    return result.trim().contains("User " + name + " exist");
   }
 
   public void createUser(String name, String passwd) {
@@ -116,6 +116,13 @@ public class JamesHelper {
     write("quit");
   }
 
+  public void drainEmail(String username, String password) throws MessagingException {
+    Folder inbox = openInbox(username, password);
+    for (Message message : inbox.getMessages()) {
+      message.setFlag(Flags.Flag.DELETED, true);
+    }
+    closeFolder(inbox);
+  }
 
   public List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException {
     long now = System.currentTimeMillis();

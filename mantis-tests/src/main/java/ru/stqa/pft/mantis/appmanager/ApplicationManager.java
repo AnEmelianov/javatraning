@@ -23,6 +23,7 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
+  private ResetHelper resetHelper;
 
 
   public ApplicationManager(String property, String browser) {
@@ -94,4 +95,10 @@ public class ApplicationManager {
     return jamesHelper;
   }
 
+  public ResetHelper reseth() {
+    if (resetHelper == null) {
+      resetHelper = new ResetHelper(this);
+    }
+    return resetHelper;
+  }
 }
