@@ -24,6 +24,7 @@ public class ApplicationManager {
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
   private ResetHelper resetHelper;
+  private SoapHelper soapHelper;
 
 
   public ApplicationManager(String property, String browser) {
@@ -100,5 +101,12 @@ public class ApplicationManager {
       resetHelper = new ResetHelper(this);
     }
     return resetHelper;
+  }
+
+  public SoapHelper soap() {
+    if (soapHelper == null) {
+      soapHelper = new SoapHelper(this);
+    }
+    return soapHelper;
   }
 }
