@@ -11,3 +11,7 @@ dependencies {
     compile 'org.seleniumhq.selenium:selenium-java:2.52.0'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
 }
+
+test {
+	useTestNG()
+	}
